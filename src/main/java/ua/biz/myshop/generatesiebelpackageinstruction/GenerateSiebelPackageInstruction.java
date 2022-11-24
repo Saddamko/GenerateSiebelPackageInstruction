@@ -58,7 +58,7 @@ import java.util.logging.Logger;
 class GenerateSiebelPackageInstruction {
 
     private static final String FILE_NAME = "e:\\ProjectChangedObjects264";
-    private static final String sPathBase = "C:\\Areon\\Configuration\\XXX_YYYY_MM_DD";
+    private static final String sPathBase = "C:\\Areon\\Configuration\\264_2022_11_22";
     static boolean bTable = false, bTasks=false, bWorkflowProcess = false, bIntegrationObject = false, bPicture = false, bSystemPreferences = false, bLOV = false, bStateModel = false, bDataMap = false, bJob = false, bEIMConfigFile = false;
     static boolean bEAIDataMap = false, bCommPackage = false, bProfileConfiguration = false, bComponentDefinitions = false, bBusinessRole = false, bManifestFile = false, bManifestObject = false, bJavaScriptFile = false, bSQL = false;
     static boolean bSRF=true;
@@ -75,9 +75,9 @@ class GenerateSiebelPackageInstruction {
     static ArrayList<TJavaScript> tJavaScriptList = new ArrayList<TJavaScript>();
     static List<String> tTablesList = new ArrayList<String>();
     static List<String> tIOList = new ArrayList<String>();
-    static  String SiebelConnectString ="Siebel://siebtestapp.uniqa.ua:2321/UNQIP2016/FINSObjMgr_enu";
+    static  String SiebelConnectString ="Siebel://siebtestapp.****.ua:2321/UNQIP2016/FINSObjMgr_enu";
     static  String SiebelUser="SADMIN";
-    static  String SiebelUserPassword="UNQIP2016";
+    static  String SiebelUserPassword="*****";
     static int nT; //Counter of Tables
     static int nR; //Counter of Repository Objects
 
