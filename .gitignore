@@ -2,8 +2,8 @@
 /src/main/resources/config.properties
 /src/main/resources/pkgunq.txt
 /src/main/resources/
-target/
-.git/
+/target/
+/.git/
 test.docx
 UNIQA. Інструкція до пакету PkgUnq288.docx
 nbactions.xml
