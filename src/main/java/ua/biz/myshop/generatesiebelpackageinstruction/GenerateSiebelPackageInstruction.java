@@ -110,7 +110,7 @@ class GenerateSiebelPackageInstruction {
 //        document.protect(ProtectionType.Allow_Only_Reading);
 //        document.setProtectionType(ProtectionType.Allow_Only_Reading);
 
-        // Customize a paragraph style
+        // Define new a paragraph style
         ParagraphStyle style = new ParagraphStyle(document);
         // Paragraph name
         style.setName("paraStyle");
