@@ -44,6 +44,7 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <debug>false</debug>
                 </configuration>
             </plugin>
 
@@ -86,7 +87,6 @@
             </plugin>
      </plugins>
     </build>
-    
     <repositories>
     <repository>
         <id>com.e-iceblue</id>
@@ -94,9 +94,7 @@
         <url>https://repo.e-iceblue.com/nexus/content/groups/public/</url>
     </repository>
     </repositories>
-    
     <dependencies>
-
     <dependency>
         <groupId>e-iceblue</groupId>
         <artifactId>spire.doc.free</artifactId>
@@ -136,7 +134,5 @@
             <type>jar</type>
         </dependency>
     </dependencies>
-    
-
 
 </project>
