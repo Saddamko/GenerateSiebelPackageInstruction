@@ -1,0 +1,10 @@
+
+target/apidocs/argfile
+target/apidocs/javadoc.bat
+target/apidocs/options
+target/apidocs/packages
+target/classes/config.properties
+*.class
+*.jar
+target/javadoc-bundle-options/javadoc-options-javadoc-resources.xml
+target/javadoc-bundle-options/package-list
