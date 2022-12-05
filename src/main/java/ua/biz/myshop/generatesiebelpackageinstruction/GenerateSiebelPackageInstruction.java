@@ -58,16 +58,16 @@ import java.util.logging.Logger;
 
 class GenerateSiebelPackageInstruction {
 
-    private static String pkgNo ="290";
+    private static String pkgNo ="298";
     private static final SimpleDateFormat formatterCurrentDate = new SimpleDateFormat("yyyy_MM_dd");
     private static final Date dateCurrent = new Date();
     private static final String sDateCurrent = formatterCurrentDate.format(dateCurrent);
     private static final String FILE_NAME = "e:\\ProjectChangedObjects" + pkgNo;
     private static final String sPathBase = "C:\\Areon\\Configuration\\"+pkgNo+ "_" + sDateCurrent+"\\";
-    private static final String FILE_OUT_NAME = sPathBase+"UNIQA. Інструкція до пакету PkgUnq"+pkgNo;
+    private static final String FILE_OUT_NAME = sPathBase+"UNIQA. Р†РЅСЃС‚СЂСѓРєС†С–СЏ РґРѕ РїР°РєРµС‚Сѓ PkgUnq"+pkgNo;
     static boolean bTable = false, bTasks=false, bWorkflowProcess = false, bIntegrationObject = false, bPicture = false, bSystemPreferences = false, bLOV = false, bStateModel = false, bDataMap = false, bJob = false, bEIMConfigFile = false;
     static boolean bEAIDataMap = false, bCommPackage = false, bProfileConfiguration = false, bComponentDefinitions = false, bBusinessRole = false, bManifestFile = false, bManifestObject = false, bJavaScriptFile = false, bSQL = false;
-    static boolean bSRF=true, bSavedQueries=false;
+    static boolean bSRF=true, bSavedQueries=false, bWebTemplate=false;
     static ArrayList<TParams> tParamsList = new ArrayList<TParams>();
     static ArrayList<TWorkflows> tWFList = new ArrayList<TWorkflows>();
     static ArrayList<TTasks> tTasksList = new ArrayList<TTasks>();
@@ -80,6 +80,7 @@ class GenerateSiebelPackageInstruction {
     static ArrayList<TCommPkg> tCommPkgList = new ArrayList<TCommPkg>();
     static ArrayList<TJavaScript> tJavaScriptList = new ArrayList<TJavaScript>();
     static ArrayList<TPDQ> tPDQList = new ArrayList<TPDQ>();
+    static ArrayList<TWT> tWebTemplatesList = new ArrayList<TWT>();
     static List<String> tTablesList = new ArrayList<String>();
     static List<String> tIOList = new ArrayList<String>();
     static  String SiebelConnectString ="";
@@ -208,23 +209,23 @@ class GenerateSiebelPackageInstruction {
         // Add a heading
         Paragraph heading = section.addParagraph();
 
-        heading.appendText("КЕРІВНИЦТВО");
+        heading.appendText("РљР•Р Р†Р’РќРР¦РўР’Рћ");
         heading.appendBreak(BreakType.Line_Break);
-        heading.appendText("щодо перенесення конфігурації Siebel CRM");
+        heading.appendText("С‰РѕРґРѕ РїРµСЂРµРЅРµСЃРµРЅРЅСЏ РєРѕРЅС„С–РіСѓСЂР°С†С–С— Siebel CRM");
         heading.appendBreak(BreakType.Line_Break);
-        heading.appendField("Зміст", FieldType.Field_TOC);
+        heading.appendField("Р—РјС–СЃС‚", FieldType.Field_TOC);
 
         // Add a subheading
         Paragraph subheading_table = section.addParagraph();
-        subheading_table.appendText("Таблиця змін");
+        subheading_table.appendText("РўР°Р±Р»РёС†СЏ Р·РјС–РЅ");
 
         Table tableChanges = section.addTable(true);
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
         Date date = new Date();
         String[][] dataChanges
                 = {
-                    new String[]{"Дата", "Автор", "Зміни"},
-                    new String[]{formatter.format(date), "Вашурін В.", "Створення стартової версії документа"},
+                    new String[]{"Р”Р°С‚Р°", "РђРІС‚РѕСЂ", "Р—РјС–РЅРё"},
+                    new String[]{formatter.format(date), "Р’Р°С€СѓСЂС–РЅ Р’.", "РЎС‚РІРѕСЂРµРЅРЅСЏ СЃС‚Р°СЂС‚РѕРІРѕС— РІРµСЂСЃС–С— РґРѕРєСѓРјРµРЅС‚Р°"},
                     new String[]{"", "", ""},};
 
         int rowCountChanges = dataChanges.length;
@@ -248,18 +249,18 @@ class GenerateSiebelPackageInstruction {
         // Adding sub-headings
         // two paragraph under the first subheading
         Paragraph subheading_common = section.addParagraph();
-        subheading_common.appendText("Загальні вимоги");
+        subheading_common.appendText("Р—Р°РіР°Р»СЊРЅС– РІРёРјРѕРіРё");
 
         // Adding paragraph 1
         Paragraph para_z = section.addParagraph();
         para_z.appendText(
-                "Роботи зі встановлення пакета повинен самостійно виконувати Адміністратор системи Siebel CRM "
-                        + "або спільно з фахівцями Ареон, які мають достатню компетенцію щодо розгортання функціоналу пакета, "
-                        + "за погодженням з власниками бізнес-процесів, відповідно до цієї інструкції "
-                        + "та прийнятого регламенту обслуговування системи.");
+                "Р РѕР±РѕС‚Рё Р·С– РІСЃС‚Р°РЅРѕРІР»РµРЅРЅСЏ РїР°РєРµС‚Р° РїРѕРІРёРЅРµРЅ СЃР°РјРѕСЃС‚С–Р№РЅРѕ РІРёРєРѕРЅСѓРІР°С‚Рё РђРґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂ СЃРёСЃС‚РµРјРё Siebel CRM "
+                        + "Р°Р±Рѕ СЃРїС–Р»СЊРЅРѕ Р· С„Р°С…С–РІС†СЏРјРё РђСЂРµРѕРЅ, СЏРєС– РјР°СЋС‚СЊ РґРѕСЃС‚Р°С‚РЅСЋ РєРѕРјРїРµС‚РµРЅС†С–СЋ С‰РѕРґРѕ СЂРѕР·РіРѕСЂС‚Р°РЅРЅСЏ С„СѓРЅРєС†С–РѕРЅР°Р»Сѓ РїР°РєРµС‚Р°, "
+                        + "Р·Р° РїРѕРіРѕРґР¶РµРЅРЅСЏРј Р· РІР»Р°СЃРЅРёРєР°РјРё Р±С–Р·РЅРµСЃ-РїСЂРѕС†РµСЃС–РІ, РІС–РґРїРѕРІС–РґРЅРѕ РґРѕ С†С–С”С— С–РЅСЃС‚СЂСѓРєС†С–С— "
+                        + "С‚Р° РїСЂРёР№РЅСЏС‚РѕРіРѕ СЂРµРіР»Р°РјРµРЅС‚Сѓ РѕР±СЃР»СѓРіРѕРІСѓРІР°РЅРЅСЏ СЃРёСЃС‚РµРјРё.");
 
         Paragraph subheading_goal = section.addParagraph();
-        subheading_goal.appendText("Призначення пакета (Release notes)");
+        subheading_goal.appendText("РџСЂРёР·РЅР°С‡РµРЅРЅСЏ РїР°РєРµС‚Р° (Release notes)");
         // Adding paragraph 2
         Paragraph para_goal_text = section.addParagraph();
         para_goal_text.appendText(
@@ -267,15 +268,15 @@ class GenerateSiebelPackageInstruction {
         para_goal_text.appendCheckBox();
 
         Paragraph subheading_opys = section.addParagraph();
-        subheading_opys.appendText("Опис пакету");
+        subheading_opys.appendText("РћРїРёСЃ РїР°РєРµС‚Сѓ");
 
         Paragraph para_object = section.addParagraph();
-        para_object.appendText("Пакет  містить об'єкти:");
+        para_object.appendText("РџР°РєРµС‚  РјС–СЃС‚РёС‚СЊ РѕР±'С”РєС‚Рё:");
 
         Table tableObjects = section.addTable(true);
         String[][] dataObjects
                 = {
-                    new String[]{"Категорія об'єкту", "Тип зміненого об'єкту", "Назва зміненого об'єкту"},};
+                    new String[]{"РљР°С‚РµРіРѕСЂС–СЏ РѕР±'С”РєС‚Сѓ", "РўРёРї Р·РјС–РЅРµРЅРѕРіРѕ РѕР±'С”РєС‚Сѓ", "РќР°Р·РІР° Р·РјС–РЅРµРЅРѕРіРѕ РѕР±'С”РєС‚Сѓ"},};
 
         int rowCountObjects = tParamsList.size() ;
         int columnCountObjects = 3;
@@ -310,7 +311,7 @@ class GenerateSiebelPackageInstruction {
         if (bSRF)
         {
         Paragraph subheading_import = section.addParagraph();
-        subheading_import.appendText("Імпорт репозиторних об'єктів");
+        subheading_import.appendText("Р†РјРїРѕСЂС‚ СЂРµРїРѕР·РёС‚РѕСЂРЅРёС… РѕР±'С”РєС‚С–РІ");
         CreateCatalog(sPathBase+"200-repo");
         CreateCatalog(sPathBase+"200-repo\\overwrite");
         
@@ -318,43 +319,43 @@ class GenerateSiebelPackageInstruction {
         // Adding one paragraph under the second subheading
         Paragraph para_repo = section.addParagraph();
         para_repo.appendText(
-                "На тестовому, а після закінчення перевірки, на продуктивному середовищі, імпортувати в Siebel Tools SIF з папки "
-                + "з вмістом пакета в режимі пакетної обробки Siebel Tools. "
-                + "Копіювати файли пакета в папку "+sPathBase+ ", зберігши структуру каталогів.  "
-                + "Дати повні права на папку " + sPathBase +" для всіх користувачів.\n"
-                + "Пакетний імпорт об'єктів виконується:\n"
-                + "1.	З папки "+ sPathBase + "\\200-repo\\overwrite в режимі імпорту \"overwrite\":\n"
-                + "Командний рядок (в режимі Адміністратор) режиму Overwrite (зразок для TEST середовища, для PROD необхідно змінити пароль):\n"
+                "РќР° С‚РµСЃС‚РѕРІРѕРјСѓ, Р° РїС–СЃР»СЏ Р·Р°РєС–РЅС‡РµРЅРЅСЏ РїРµСЂРµРІС–СЂРєРё, РЅР° РїСЂРѕРґСѓРєС‚РёРІРЅРѕРјСѓ СЃРµСЂРµРґРѕРІРёС‰С–, С–РјРїРѕСЂС‚СѓРІР°С‚Рё РІ Siebel Tools SIF Р· РїР°РїРєРё "
+                + "Р· РІРјС–СЃС‚РѕРј РїР°РєРµС‚Р° РІ СЂРµР¶РёРјС– РїР°РєРµС‚РЅРѕС— РѕР±СЂРѕР±РєРё Siebel Tools. "
+                + "РљРѕРїС–СЋРІР°С‚Рё С„Р°Р№Р»Рё РїР°РєРµС‚Р° РІ РїР°РїРєСѓ "+sPathBase+ ", Р·Р±РµСЂС–РіС€Рё СЃС‚СЂСѓРєС‚СѓСЂСѓ РєР°С‚Р°Р»РѕРіС–РІ.  "
+                + "Р”Р°С‚Рё РїРѕРІРЅС– РїСЂР°РІР° РЅР° РїР°РїРєСѓ " + sPathBase +" РґР»СЏ РІСЃС–С… РєРѕСЂРёСЃС‚СѓРІР°С‡С–РІ.\n"
+                + "РџР°РєРµС‚РЅРёР№ С–РјРїРѕСЂС‚ РѕР±'С”РєС‚С–РІ РІРёРєРѕРЅСѓС”С‚СЊСЃСЏ:\n"
+                + "1.	Р— РїР°РїРєРё "+ sPathBase + "\200-repo\\overwrite РІ СЂРµР¶РёРјС– С–РјРїРѕСЂС‚Сѓ \"overwrite\":\n"
+                + "РљРѕРјР°РЅРґРЅРёР№ СЂСЏРґРѕРє (РІ СЂРµР¶РёРјС– РђРґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂ) СЂРµР¶РёРјСѓ Overwrite (Р·СЂР°Р·РѕРє РґР»СЏ TEST СЃРµСЂРµРґРѕРІРёС‰Р°, РґР»СЏ PROD РЅРµРѕР±С…С–РґРЅРѕ Р·РјС–РЅРёС‚Рё РїР°СЂРѕР»СЊ):\n"
                 + "C:\\Siebel\\16.0.0.0.0\\Tools\\BIN\\siebdev.exe /c \"c:\\Siebel\\16.0.0.0.0\\Tools\\bin\\enu\\tools.cfg\" /u SADMIN /p UNQIP2016 /d ServerDataSrc /batchimport \"Siebel Repository\" overwrite \"" + sPathBase +"200-repo\\overwrite\" "+ sPathBase + "200-repo\\UnqPkg"+pkgNo+"overwrite.log\n"
-                + "Після закінчення імпорту потрібно обов'язково досліджувати вміст файлів " + sPathBase +"200-repo\\UnqPkg"+pkgNo+"overwrite.log,\n"
-                + "на наявність помилок (див. останній рядок у цих файлах).\n"
-                + "Повинна бути підстрока Failed Imports: 0 (без повідомлень про помилки), приклад:\n"
+                + "РџС–СЃР»СЏ Р·Р°РєС–РЅС‡РµРЅРЅСЏ С–РјРїРѕСЂС‚Сѓ РїРѕС‚СЂС–Р±РЅРѕ РѕР±РѕРІ'СЏР·РєРѕРІРѕ РґРѕСЃР»С–РґР¶СѓРІР°С‚Рё РІРјС–СЃС‚ С„Р°Р№Р»С–РІ " + sPathBase +"200-repo\\UnqPkg"+pkgNo+"overwrite.log,\n"
+                + "РЅР° РЅР°СЏРІРЅС–СЃС‚СЊ РїРѕРјРёР»РѕРє (РґРёРІ. РѕСЃС‚Р°РЅРЅС–Р№ СЂСЏРґРѕРє Сѓ С†РёС… С„Р°Р№Р»Р°С…).\n"
+                + "РџРѕРІРёРЅРЅР° Р±СѓС‚Рё РїС–РґСЃС‚СЂРѕРєР° Failed Imports: 0 (Р±РµР· РїРѕРІС–РґРѕРјР»РµРЅСЊ РїСЂРѕ РїРѕРјРёР»РєРё), РїСЂРёРєР»Р°Рґ:\n"
                 + "STATUS: Total Files:  "+ Integer.toString(nR) +", Successful Imports: "+ Integer.toString(nR) +", Failed Imports: 0\n"
-                + "2.	З папки "+ sPathBase + "\\200-repo\\merge (описи таблиць) в режимі імпорту \"merge\":\n"
-                + "Командний рядок (в режимі Адміністратор) режиму Merge (зразок для TEST середовища, для PROD необхідно змінити пароль):\n"
+                + "2.	Р— РїР°РїРєРё "+ sPathBase + "\200-repo\\merge (РѕРїРёСЃРё С‚Р°Р±Р»РёС†СЊ) РІ СЂРµР¶РёРјС– С–РјРїРѕСЂС‚Сѓ \"merge\":\n"
+                + "РљРѕРјР°РЅРґРЅРёР№ СЂСЏРґРѕРє (РІ СЂРµР¶РёРјС– РђРґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂ) СЂРµР¶РёРјСѓ Merge (Р·СЂР°Р·РѕРє РґР»СЏ TEST СЃРµСЂРµРґРѕРІРёС‰Р°, РґР»СЏ PROD РЅРµРѕР±С…С–РґРЅРѕ Р·РјС–РЅРёС‚Рё РїР°СЂРѕР»СЊ):\n"
                 + "C:\\Siebel\\16.0.0.0.0\\Tools\\BIN\\siebdev.exe /c \"c:\\Siebel\\16.0.0.0.0\\Tools\\bin\\enu\\tools.cfg\" /u SADMIN /p UNQIP2016 /d ServerDataSrc /batchimport \"Siebel Repository\" merge \"" + sPathBase +"200-repo\\merge\" "+ sPathBase + "200-repo\\UnqPkg"+pkgNo+"merge.log\n"
-                + "Після закінчення імпорту потрібно обов'язково досліджувати вміст файлів " + sPathBase +"200-repo\\UnqPkg"+pkgNo+"overwrite.log,\n"
-                + "на наявність помилок (див. останній рядок у цих файлах).\n"
-                + "Повинна бути підстрока Failed Imports: 0 (без повідомлень про помилки), приклад:\n"
+                + "РџС–СЃР»СЏ Р·Р°РєС–РЅС‡РµРЅРЅСЏ С–РјРїРѕСЂС‚Сѓ РїРѕС‚СЂС–Р±РЅРѕ РѕР±РѕРІ'СЏР·РєРѕРІРѕ РґРѕСЃР»С–РґР¶СѓРІР°С‚Рё РІРјС–СЃС‚ С„Р°Р№Р»С–РІ " + sPathBase +"200-repo\\UnqPkg"+pkgNo+"overwrite.log,\n"
+                + "РЅР° РЅР°СЏРІРЅС–СЃС‚СЊ РїРѕРјРёР»РѕРє (РґРёРІ. РѕСЃС‚Р°РЅРЅС–Р№ СЂСЏРґРѕРє Сѓ С†РёС… С„Р°Р№Р»Р°С…).\n"
+                + "РџРѕРІРёРЅРЅР° Р±СѓС‚Рё РїС–РґСЃС‚СЂРѕРєР° Failed Imports: 0 (Р±РµР· РїРѕРІС–РґРѕРјР»РµРЅСЊ РїСЂРѕ РїРѕРјРёР»РєРё), РїСЂРёРєР»Р°Рґ:\n"
                 + "STATUS: Total Files:  "+ Integer.toString(nT) +", Successful Imports: "+ Integer.toString(nT) +", Failed Imports: 0\n"
         );
 
         Paragraph subheading_compile = section.addParagraph();
-        subheading_compile.appendText("Компіляція SRF-файлу (репозиторія)");
+        subheading_compile.appendText("РљРѕРјРїС–Р»СЏС†С–СЏ SRF-С„Р°Р№Р»Сѓ (СЂРµРїРѕР·РёС‚РѕСЂС–СЏ)");
 
         // Adding one paragraph under the second subheading
         Paragraph para_compile = section.addParagraph();
         para_compile.appendText(
-                  "Далі необхідно провести компіляцію SRF-файлу, щоб у нього увійшли імпортовані з файлів .sif зміни. "
-                + "Компіляцію зробити для ENU та RUS мов (зробити два окремих SRF-файли).\n"
-                + "Перед компіляцією необхідно перевірити встановлення мови у налаштуваннях Siebel Tools, "
-                + "вибрати всі проекти та обрати файл, до якого вивантажити репозиторій.");
+                  "Р”Р°Р»С– РЅРµРѕР±С…С–РґРЅРѕ РїСЂРѕРІРµСЃС‚Рё РєРѕРјРїС–Р»СЏС†С–СЋ SRF-С„Р°Р№Р»Сѓ, С‰РѕР± Сѓ РЅСЊРѕРіРѕ СѓРІС–Р№С€Р»Рё С–РјРїРѕСЂС‚РѕРІР°РЅС– Р· С„Р°Р№Р»С–РІ .sif Р·РјС–РЅРё. "
+                + "РљРѕРјРїС–Р»СЏС†С–СЋ Р·СЂРѕР±РёС‚Рё РґР»СЏ ENU С‚Р° RUS РјРѕРІ (Р·СЂРѕР±РёС‚Рё РґРІР° РѕРєСЂРµРјРёС… SRF-С„Р°Р№Р»Рё).\n"
+                + "РџРµСЂРµРґ РєРѕРјРїС–Р»СЏС†С–С”СЋ РЅРµРѕР±С…С–РґРЅРѕ РїРµСЂРµРІС–СЂРёС‚Рё РІСЃС‚Р°РЅРѕРІР»РµРЅРЅСЏ РјРѕРІРё Сѓ РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏС… Siebel Tools, "
+                + "РІРёР±СЂР°С‚Рё РІСЃС– РїСЂРѕРµРєС‚Рё С‚Р° РѕР±СЂР°С‚Рё С„Р°Р№Р», РґРѕ СЏРєРѕРіРѕ РІРёРІР°РЅС‚Р°Р¶РёС‚Рё СЂРµРїРѕР·РёС‚РѕСЂС–Р№.");
 
         DocPicture picture2 = para_compile.appendPicture("src\\main\\resources\\ToolsCompile2.png");
         picture2.setWidth(400);
         picture2.setHeight(300);
         picture2.setHorizontalAlignment(ShapeHorizontalAlignment.Center);
-        picture2.addCaption("Екран під час компіляції SRF-файлу (репозиторія)", CaptionNumberingFormat.Alphabetic, CaptionPosition.Below_Item);
+        picture2.addCaption("Р•РєСЂР°РЅ РїС–Рґ С‡Р°СЃ РєРѕРјРїС–Р»СЏС†С–С— SRF-С„Р°Р№Р»Сѓ (СЂРµРїРѕР·РёС‚РѕСЂС–СЏ)", CaptionNumberingFormat.Alphabetic, CaptionPosition.Below_Item);
         subheading_import.applyStyle("myHeading_1");
         subheading_compile.applyStyle("myHeading_2");
         para_repo.applyStyle("paraStyle");
@@ -367,18 +368,18 @@ class GenerateSiebelPackageInstruction {
         {
         getPDQList(tParamsList);
         Paragraph subheading_predifined_queries = section.addParagraph();
-        subheading_predifined_queries.appendText("Налаштування Predefined Queries");
+        subheading_predifined_queries.appendText("РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ Predefined Queries");
         
         // Adding one paragraph under the second subheading
         Paragraph predifined_queries = section.addParagraph();
         predifined_queries.appendText(
-                  "Попередньо визначені запити (PDQ) автоматизують запити, які користувач може виконувати онлайн. "
-                          + "Замість того, щоб створювати запит, вводити критерії та запускати запит, "
-                          + "користувач вибирає PDQ зі спадного списку Запити. "
-                          + "Якщо ви хочете зробити запит загальнодоступним:\n" +
-                        "Перейдіть до екрана «Administration - Application screen», а потім до перегляду «Predefined Queries».\n" +
-                        "У списку «Predefined Queries» зніміть прапорець у полі «Private» в записі для щойно створеного запиту."
-                          + "Зайдить до Administration-Application, Predifined queries, та додайте наступні записи");
+                  "РџРѕРїРµСЂРµРґРЅСЊРѕ РІРёР·РЅР°С‡РµРЅС– Р·Р°РїРёС‚Рё (PDQ) Р°РІС‚РѕРјР°С‚РёР·СѓСЋС‚СЊ Р·Р°РїРёС‚Рё, СЏРєС– РєРѕСЂРёСЃС‚СѓРІР°С‡ РјРѕР¶Рµ РІРёРєРѕРЅСѓРІР°С‚Рё РѕРЅР»Р°Р№РЅ. "
+                          + "Р—Р°РјС–СЃС‚СЊ С‚РѕРіРѕ, С‰РѕР± СЃС‚РІРѕСЂСЋРІР°С‚Рё Р·Р°РїРёС‚, РІРІРѕРґРёС‚Рё РєСЂРёС‚РµСЂС–С— С‚Р° Р·Р°РїСѓСЃРєР°С‚Рё Р·Р°РїРёС‚, "
+                          + "РєРѕСЂРёСЃС‚СѓРІР°С‡ РІРёР±РёСЂР°С” PDQ Р·С– СЃРїР°РґРЅРѕРіРѕ СЃРїРёСЃРєСѓ Р—Р°РїРёС‚Рё. "
+                          + "РЇРєС‰Рѕ РІРё С…РѕС‡РµС‚Рµ Р·СЂРѕР±РёС‚Рё Р·Р°РїРёС‚ Р·Р°РіР°Р»СЊРЅРѕРґРѕСЃС‚СѓРїРЅРёРј:\n" +
+                        "РџРµСЂРµР№РґС–С‚СЊ РґРѕ РµРєСЂР°РЅР° В«Administration - Application screenВ», Р° РїРѕС‚С–Рј РґРѕ РїРµСЂРµРіР»СЏРґСѓ В«Predefined QueriesВ».\n" +
+                        "РЈ СЃРїРёСЃРєСѓ В«Predefined QueriesВ» Р·РЅС–РјС–С‚СЊ РїСЂР°РїРѕСЂРµС†СЊ Сѓ РїРѕР»С– В«PrivateВ» РІ Р·Р°РїРёСЃС– РґР»СЏ С‰РѕР№РЅРѕ СЃС‚РІРѕСЂРµРЅРѕРіРѕ Р·Р°РїРёС‚Сѓ."
+                          + "Р—Р°Р№РґРёС‚СЊ РґРѕ Administration-Application, Predifined queries, С‚Р° РґРѕРґР°Р№С‚Рµ РЅР°СЃС‚СѓРїРЅС– Р·Р°РїРёСЃРё");
             Table tablePDQ = section.addTable(true);
             String[][] dataStateModel
                     = {new String[]{"Type", "Object", "Name","Query"},};
@@ -418,7 +419,7 @@ class GenerateSiebelPackageInstruction {
         picture.setHeight(120);
         picture.setHorizontalAlignment(ShapeHorizontalAlignment.Center);
 
-        picture.addCaption("Приклад налаштування PDQ", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
+        picture.addCaption("РџСЂРёРєР»Р°Рґ РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ PDQ", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
         subheading_predifined_queries.applyStyle("myHeading_1");
         predifined_queries.applyStyle("paraStyle");    
         }
@@ -430,22 +431,23 @@ class GenerateSiebelPackageInstruction {
         if (bStateModel)
         {
             getStateModelList(tParamsList);
+            CreateCatalog(sPathBase+"300-environment\\303-State Model");
             Paragraph subheading_StateModel = section.addParagraph();
-            subheading_StateModel.appendText("Перенос State Model");
+            subheading_StateModel.appendText("РџРµСЂРµРЅРѕСЃ State Model");
             
             CreateCatalog(sPathBase+"300-environment");
             CreateCatalog(sPathBase+"300-environment\\303-State Model");
             
             Paragraph para_StateModel = section.addParagraph();
             para_StateModel.appendText(
-                      "Далі імпортуйте State Model. Щоб імпортувати State Model, скористайтеся Application Deployment Manager. "
-                    + "Відкрийте клієнт Siebel (ENU) із правами адміністратора. Перейдіть до екрана «Application Deployment Manager», "
-                    + "а потім до «Deployment Sessions». Далі, в меню виберіть \"Deploy From Local File\" і папку, "
-                    + "де збережені файли, що містять State Model: " +sPathBase+ "300-environment\\303-State Model.\n"
-                    + "Необхідно по черзі виконати вказані дії для всіх файлів (див. таблицю нижче)." );
+                      "Р”Р°Р»С– С–РјРїРѕСЂС‚СѓР№С‚Рµ State Model. Р©РѕР± С–РјРїРѕСЂС‚СѓРІР°С‚Рё State Model, СЃРєРѕСЂРёСЃС‚Р°Р№С‚РµСЃСЏ Application Deployment Manager. "
+                    + "Р’С–РґРєСЂРёР№С‚Рµ РєР»С–С”РЅС‚ Siebel (ENU) С–Р· РїСЂР°РІР°РјРё Р°РґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂР°. РџРµСЂРµР№РґС–С‚СЊ РґРѕ РµРєСЂР°РЅР° В«Application Deployment ManagerВ», "
+                    + "Р° РїРѕС‚С–Рј РґРѕ В«Deployment SessionsВ». Р”Р°Р»С–, РІ РјРµРЅСЋ РІРёР±РµСЂС–С‚СЊ \"Deploy From Local File\" С– РїР°РїРєСѓ, "
+                    + "РґРµ Р·Р±РµСЂРµР¶РµРЅС– С„Р°Р№Р»Рё, С‰Рѕ РјС–СЃС‚СЏС‚СЊ State Model: " +sPathBase+ "300-environment\\303-State Model.\n"
+                    + "РќРµРѕР±С…С–РґРЅРѕ РїРѕ С‡РµСЂР·С– РІРёРєРѕРЅР°С‚Рё РІРєР°Р·Р°РЅС– РґС–С— РґР»СЏ РІСЃС–С… С„Р°Р№Р»С–РІ (РґРёРІ. С‚Р°Р±Р»РёС†СЋ РЅРёР¶С‡Рµ)." );
             Table tableStateModel = section.addTable(true);
             String[][] dataStateModel
-                    = {new String[]{"State Model", "XML-файл"},};
+                    = {new String[]{"State Model", "XML-С„Р°Р№Р»"},};
 
             int rowCountStateModel = tStateModelList.size();
 
@@ -481,25 +483,78 @@ class GenerateSiebelPackageInstruction {
         }
         //END STATE MODEL
         
+        //BEGIN WEB TEMPLATE
+        if (bWebTemplate)
+        {
+            getWebTemplatesList(tParamsList);
+            CreateCatalog(sPathBase+"300-environment\\392-Web Template File");
+            Paragraph subheading_WT = section.addParagraph();
+            subheading_WT.appendText("РџРµСЂРµРЅРѕСЃ Web tempaltes");
+           
+            
+            Paragraph para_WT = section.addParagraph();
+            para_WT.appendText(
+                      "РџРµСЂРµРЅРµСЃРёС‚СЊ Web Templates. "
+                    + "Р¤Р°Р№Р»Рё *.swt Р· РїР°РїРєРё, "
+                    + "РґРµ Р·Р±РµСЂРµР¶РµРЅС– С„Р°Р№Р»Рё, С‰Рѕ РјС–СЃС‚СЏС‚СЊ Web Templates: " +sPathBase+ "300-environment\\392-Web Template File.\n"
+                    + "РЅРµРѕР±С…С–РґРЅРѕ РїРѕРєР»Р°СЃС‚Рё РґРѕ РєР°С‚Р°Р»РѕРіСѓ C:\\Siebel\\16.0.0.0.0\\ses\\siebsrvr\\WEBTEMPL\\CUSTOM" );
+            Table tableWT = section.addTable(true);
+            String[][] dataStateModel
+                    = {new String[]{"Object Type", "Web Template С„Р°Р№Р»"},};
+
+            int rowCountWT = tWebTemplatesList.size();
+
+            int columnCountWT = 2;
+            tableWT.resetCells(rowCountWT+1, columnCountWT);
+
+            //fill the header to tableWT
+            i = 0;
+            for (int j = 0; j < columnCountWT; j++) {
+                Paragraph p;
+                p = tableWT.getRows().get(i).getCells().get(j).addParagraph();
+                p.applyStyle("TableHeader");
+                p.appendText(dataStateModel[i][j]);
+            }
+
+            for (i = 0; i < rowCountWT; i++) {
+                for (int j = 0; j < columnCountWT; j++) {
+                    Paragraph p;
+                    p = tableWT.getRows().get(i+1).getCells().get(j).addParagraph();
+                    p.applyStyle("TableText");
+                    if (j == 0) {
+                        p.appendText(tWebTemplatesList.get(i).type);
+                    } else if (j == 1) {
+                        p.appendText(tWebTemplatesList.get(i).file);
+                    }
+                }
+
+            }   
+            
+            subheading_WT.applyStyle("myHeading_1");
+            para_WT.applyStyle("paraStyle");
+            
+        }
+        //END WEB TEMPLATE
+        
         //BEGIN IO
         if (bIntegrationObject)
         {
         getIOList(tParamsList);
         Paragraph subheading_IO = section.addParagraph();
-        subheading_IO.appendText("Налаштування по Integration Objects");
+        subheading_IO.appendText("РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ РїРѕ Integration Objects");
 
         Paragraph para_IO = section.addParagraph();
-        para_IO.appendText("1. Підключіться за допомогою Siebel Tools.\n" +
-            "2. У Object Explorer у Siebel Tools виберіть Integration Object, після чого з’явиться список Integration Objects.\r" +
-            "3. Клацніть правою кнопкою миші об’єкт інтеграції, який потрібно розгорнути, а потім виберіть «Deploy to run-time Database».\r" +
-            "4. Об'єкт інтеграції розгортається.\n" +
-            "5. У клієнті Siebel перейдіть до екрана «Administration-Web Services», перегляд «Inbound (або Outbound) Web Services ».\r" +
-            "6. Клацніть «Clear Cache», щоб зробити недійсними визначення об’єкта інтеграції та веб-служб у базі даних часу виконання.\r" +
-            "Виконати Undeploy/Deploy для:" );
+        para_IO.appendText("1. РџС–РґРєР»СЋС‡С–С‚СЊСЃСЏ Р·Р° РґРѕРїРѕРјРѕРіРѕСЋ Siebel Tools.\n" +
+            "2. РЈ Object Explorer Сѓ Siebel Tools РІРёР±РµСЂС–С‚СЊ Integration Object, РїС–СЃР»СЏ С‡РѕРіРѕ Р·вЂ™СЏРІРёС‚СЊСЃСЏ СЃРїРёСЃРѕРє Integration Objects.\r" +
+            "3. РљР»Р°С†РЅС–С‚СЊ РїСЂР°РІРѕСЋ РєРЅРѕРїРєРѕСЋ РјРёС€С– РѕР±вЂ™С”РєС‚ С–РЅС‚РµРіСЂР°С†С–С—, СЏРєРёР№ РїРѕС‚СЂС–Р±РЅРѕ СЂРѕР·РіРѕСЂРЅСѓС‚Рё, Р° РїРѕС‚С–Рј РІРёР±РµСЂС–С‚СЊ В«Deploy to run-time DatabaseВ».\r" +
+            "4. РћР±'С”РєС‚ С–РЅС‚РµРіСЂР°С†С–С— СЂРѕР·РіРѕСЂС‚Р°С”С‚СЊСЃСЏ.\n" +
+            "5. РЈ РєР»С–С”РЅС‚С– Siebel РїРµСЂРµР№РґС–С‚СЊ РґРѕ РµРєСЂР°РЅР° В«Administration-Web ServicesВ», РїРµСЂРµРіР»СЏРґ В«Inbound (Р°Р±Рѕ Outbound) Web Services В».\r" +
+            "6. РљР»Р°С†РЅС–С‚СЊ В«Clear CacheВ», С‰РѕР± Р·СЂРѕР±РёС‚Рё РЅРµРґС–Р№СЃРЅРёРјРё РІРёР·РЅР°С‡РµРЅРЅСЏ РѕР±вЂ™С”РєС‚Р° С–РЅС‚РµРіСЂР°С†С–С— С‚Р° РІРµР±-СЃР»СѓР¶Р± Сѓ Р±Р°Р·С– РґР°РЅРёС… С‡Р°СЃСѓ РІРёРєРѕРЅР°РЅРЅСЏ.\r" +
+            "Р’РёРєРѕРЅР°С‚Рё Undeploy/Deploy РґР»СЏ:" );
 
         Table tableIO = section.addTable(true);
         String[][] dataIO
-                = {new String[]{"Тип об'єкту", "Назва"},};
+                = {new String[]{"РўРёРї РѕР±'С”РєС‚Сѓ", "РќР°Р·РІР°"},};
 
         int rowCountIO = tIOList.size();
 
@@ -530,7 +585,7 @@ class GenerateSiebelPackageInstruction {
         }   
         
         Paragraph para_IO2 = section.addParagraph();
-        para_IO2.appendText("Для перевірки зайти до Deployed Integration Objects вкладки  экрану Siebel Web Services Administration" );
+        para_IO2.appendText("Р”Р»СЏ РїРµСЂРµРІС–СЂРєРё Р·Р°Р№С‚Рё РґРѕ Deployed Integration Objects РІРєР»Р°РґРєРё  СЌРєСЂР°РЅСѓ Siebel Web Services Administration" );
         subheading_IO.applyStyle("myHeading_1");
         para_IO.applyStyle("paraStyle");
         para_IO2.applyStyle("paraStyle");
@@ -539,7 +594,7 @@ class GenerateSiebelPackageInstruction {
         picture.setWidth(450);
         picture.setHeight(150);
         picture.setHorizontalAlignment(ShapeHorizontalAlignment.Center);
-        picture.addCaption("Екран під час налаштування по Integration Objects", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
+        picture.addCaption("Р•РєСЂР°РЅ РїС–Рґ С‡Р°СЃ РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ РїРѕ Integration Objects", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
         }
         //END IO
 
@@ -549,15 +604,15 @@ class GenerateSiebelPackageInstruction {
         CreateCatalog(sPathBase+"200-repo\\merge");    
         getTablesList(tParamsList);
         Paragraph subheading_tables = section.addParagraph();
-        subheading_tables.appendText("Apply та Activate таблиць");
+        subheading_tables.appendText("Apply С‚Р° Activate С‚Р°Р±Р»РёС†СЊ");
 
         Paragraph para_tables = section.addParagraph();
-        para_tables.appendText("У фізичну схему бази даних необхідно внести зміни, "
-                + "відповідно до нових описів таблиць в репозиторії (виконати Apply). У Siebel Tools знайдіть таблиці");
+        para_tables.appendText("РЈ С„С–Р·РёС‡РЅСѓ СЃС…РµРјСѓ Р±Р°Р·Рё РґР°РЅРёС… РЅРµРѕР±С…С–РґРЅРѕ РІРЅРµСЃС‚Рё Р·РјС–РЅРё, "
+                + "РІС–РґРїРѕРІС–РґРЅРѕ РґРѕ РЅРѕРІРёС… РѕРїРёСЃС–РІ С‚Р°Р±Р»РёС†СЊ РІ СЂРµРїРѕР·РёС‚РѕСЂС–С— (РІРёРєРѕРЅР°С‚Рё Apply). РЈ Siebel Tools Р·РЅР°Р№РґС–С‚СЊ С‚Р°Р±Р»РёС†С–");
 
         Table tableTables = section.addTable(true);
         String[][] dataTable
-                = {new String[]{"Тип об'єкту", "Назва"},};
+                = {new String[]{"РўРёРї РѕР±'С”РєС‚Сѓ", "РќР°Р·РІР°"},};
 
         int rowCountTable = dataTable.length;
 
@@ -590,14 +645,14 @@ class GenerateSiebelPackageInstruction {
         }
 
         Paragraph para_tables2 = section.addParagraph();
-        para_tables2.appendText("та натисніть кнопку «Apply» під користувачем: SIEBEL/SIBIP2016; DSN: SIEBTEST2016_DSN (для тестового середовища), або SIEBPROD2016_DSN для продуктивного середовища. "
-                + "Table Space: SIEBEL_DATA, Index Space: SIEBEL_INDEX для всіх середовищ. "
-                + "Провести операцію Activate.");
+        para_tables2.appendText("С‚Р° РЅР°С‚РёСЃРЅС–С‚СЊ РєРЅРѕРїРєСѓ В«ApplyВ» РїС–Рґ РєРѕСЂРёСЃС‚СѓРІР°С‡РµРј: SIEBEL/SIBIP2016; DSN: SIEBTEST2016_DSN (РґР»СЏ С‚РµСЃС‚РѕРІРѕРіРѕ СЃРµСЂРµРґРѕРІРёС‰Р°), Р°Р±Рѕ SIEBPROD2016_DSN РґР»СЏ РїСЂРѕРґСѓРєС‚РёРІРЅРѕРіРѕ СЃРµСЂРµРґРѕРІРёС‰Р°. "
+                + "Table Space: SIEBEL_DATA, Index Space: SIEBEL_INDEX РґР»СЏ РІСЃС–С… СЃРµСЂРµРґРѕРІРёС‰. "
+                + "РџСЂРѕРІРµСЃС‚Рё РѕРїРµСЂР°С†С–СЋ Activate.");
         DocPicture picture = para_tables2.appendPicture("src\\main\\resources\\Apply.png");
         picture.setWidth(250);
         picture.setHeight(350);
         picture.setHorizontalAlignment(ShapeHorizontalAlignment.Center);
-        picture.addCaption("Екран Apply та Activate таблиць", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
+        picture.addCaption("Р•РєСЂР°РЅ Apply С‚Р° Activate С‚Р°Р±Р»РёС†СЊ", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
         subheading_tables.applyStyle("myHeading_1");
         para_tables.applyStyle("paraStyle");
         para_tables2.applyStyle("paraStyle");
@@ -608,22 +663,23 @@ class GenerateSiebelPackageInstruction {
         if (bLOV)
         {
         getLOVList(tParamsList);
+        CreateCatalog(sPathBase+"300-environment\\302-List Of Values");
         Paragraph subheading_lov = section.addParagraph();
-        subheading_lov.appendText("Встановлення значень List of Values (LOV)");
+        subheading_lov.appendText("Р’СЃС‚Р°РЅРѕРІР»РµРЅРЅСЏ Р·РЅР°С‡РµРЅСЊ List of Values (LOV)");
 
         Paragraph para_lov = section.addParagraph();
         para_lov.appendText(
-                  "Імпортуйте LOV. Щоб імпортувати LOV, скористайтеся Application Deployment Manager. "
-                + "Відкрийте клієнт Siebel (ENU) із правами адміністратора. "
-                + "Перейдіть до екрана «Application Deployment Manager), "
-                + "а потім до «Deployment Sessions». Далі, в меню виберіть  "
-                + "\"Deploy From Local File\" і папку, де збережені файли, що містять LOV: "
+                  "Р†РјРїРѕСЂС‚СѓР№С‚Рµ LOV. Р©РѕР± С–РјРїРѕСЂС‚СѓРІР°С‚Рё LOV, СЃРєРѕСЂРёСЃС‚Р°Р№С‚РµСЃСЏ Application Deployment Manager. "
+                + "Р’С–РґРєСЂРёР№С‚Рµ РєР»С–С”РЅС‚ Siebel (ENU) С–Р· РїСЂР°РІР°РјРё Р°РґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂР°. "
+                + "РџРµСЂРµР№РґС–С‚СЊ РґРѕ РµРєСЂР°РЅР° В«Application Deployment Manager), "
+                + "Р° РїРѕС‚С–Рј РґРѕ В«Deployment SessionsВ». Р”Р°Р»С–, РІ РјРµРЅСЋ РІРёР±РµСЂС–С‚СЊ  "
+                + "\"Deploy From Local File\" С– РїР°РїРєСѓ, РґРµ Р·Р±РµСЂРµР¶РµРЅС– С„Р°Р№Р»Рё, С‰Рѕ РјС–СЃС‚СЏС‚СЊ LOV: "
                 + sPathBase +"300-environment\\302-List Of Values.\n" 
-                + "Необхідно по черзі виконати вказані дії для всіх файлів (див. таблицю нижче).");   
+                + "РќРµРѕР±С…С–РґРЅРѕ РїРѕ С‡РµСЂР·С– РІРёРєРѕРЅР°С‚Рё РІРєР°Р·Р°РЅС– РґС–С— РґР»СЏ РІСЃС–С… С„Р°Р№Р»С–РІ (РґРёРІ. С‚Р°Р±Р»РёС†СЋ РЅРёР¶С‡Рµ).");   
         
         Table tableLOV = section.addTable(true);
         String[][] dataLOV
-                = {new String[]{"Назва LOV", "XML-файл"},};
+                = {new String[]{"РќР°Р·РІР° LOV", "XML-С„Р°Р№Р»"},};
 
         int rowCountTableLOV = tLOVList.size();
 
@@ -653,7 +709,7 @@ class GenerateSiebelPackageInstruction {
         }
         Paragraph para_lov2 = section.addParagraph();
         para_lov2.appendText(
-                  "Далі, перейдіть до екрана «Administration Data», а потім до «List of Values», і натисніть кнопку «Clear Cache».");     
+                  "Р”Р°Р»С–, РїРµСЂРµР№РґС–С‚СЊ РґРѕ РµРєСЂР°РЅР° В«Administration DataВ», Р° РїРѕС‚С–Рј РґРѕ В«List of ValuesВ», С– РЅР°С‚РёСЃРЅС–С‚СЊ РєРЅРѕРїРєСѓ В«Clear CacheВ».");     
         
         subheading_lov.applyStyle("myHeading_1");
         para_lov.applyStyle("paraStyle");  
@@ -667,18 +723,18 @@ class GenerateSiebelPackageInstruction {
         getWorkflowList(tParamsList);
         UpdateWorkflowVersionList();
         Paragraph subheading_wf = section.addParagraph();
-        subheading_wf.appendText("Активація потоку операцій (Workflow)");
+        subheading_wf.appendText("РђРєС‚РёРІР°С†С–СЏ РїРѕС‚РѕРєСѓ РѕРїРµСЂР°С†С–Р№ (Workflow)");
 
         Paragraph para_wf = section.addParagraph();
-        para_wf.appendText("Щоб активувати потік операцій:  увійдіть у клієнт Siebel (ENU) з правами адміністратора. "
-                + "Перейдіть до екрана Administration – Business Process», а потім до Workflow Deployment». "
-                + "На аплеті Repository \"Workflow Process\" запитайте в полі Name\" потрібний Workflow і "
-                + "натисніть кнопку \"Activate\". Після активації, необхідно перевірити: "
-                + "версія активного Workflow має збігатися з версією репозиторії.");
+        para_wf.appendText("Р©РѕР± Р°РєС‚РёРІСѓРІР°С‚Рё РїРѕС‚С–Рє РѕРїРµСЂР°С†С–Р№:  СѓРІС–Р№РґС–С‚СЊ Сѓ РєР»С–С”РЅС‚ Siebel (ENU) Р· РїСЂР°РІР°РјРё Р°РґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂР°. "
+                + "РџРµСЂРµР№РґС–С‚СЊ РґРѕ РµРєСЂР°РЅР° Administration вЂ“ Business ProcessВ», Р° РїРѕС‚С–Рј РґРѕ Workflow DeploymentВ». "
+                + "РќР° Р°РїР»РµС‚С– Repository \"Workflow Process\" Р·Р°РїРёС‚Р°Р№С‚Рµ РІ РїРѕР»С– Name\" РїРѕС‚СЂС–Р±РЅРёР№ Workflow С– "
+                + "РЅР°С‚РёСЃРЅС–С‚СЊ РєРЅРѕРїРєСѓ \"Activate\". РџС–СЃР»СЏ Р°РєС‚РёРІР°С†С–С—, РЅРµРѕР±С…С–РґРЅРѕ РїРµСЂРµРІС–СЂРёС‚Рё: "
+                + "РІРµСЂСЃС–СЏ Р°РєС‚РёРІРЅРѕРіРѕ Workflow РјР°С” Р·Р±С–РіР°С‚РёСЃСЏ Р· РІРµСЂСЃС–С”СЋ СЂРµРїРѕР·РёС‚РѕСЂС–С—.");
 
         Table tableWF = section.addTable(true);
         String[][] dataWF
-                = {new String[]{"Тип об'єкту", "Потік операцій (Workflow)", "Версія репозиторію"},};
+                = {new String[]{"РўРёРї РѕР±'С”РєС‚Сѓ", "РџРѕС‚С–Рє РѕРїРµСЂР°С†С–Р№ (Workflow)", "Р’РµСЂСЃС–СЏ СЂРµРїРѕР·РёС‚РѕСЂС–СЋ"},};
 
         int rowCountWF = dataWF.length;
 
@@ -712,14 +768,14 @@ class GenerateSiebelPackageInstruction {
         }
 
         //fill the style to Table
-        para_wf.appendText("У Siebel Tools перевірити: якщо встановлено статус Completed для різних версій одного і того ж Workflow, "
-                + "то необхідно змінити статус на Not In Use. Тобто, у статусі Completed повинен бути Workflow останньої версії.\n"
-                + "При активації WF в клієнті видалити попередні неактивні версії, перезавантаження сервісів не потрібно.");
+        para_wf.appendText("РЈ Siebel Tools РїРµСЂРµРІС–СЂРёС‚Рё: СЏРєС‰Рѕ РІСЃС‚Р°РЅРѕРІР»РµРЅРѕ СЃС‚Р°С‚СѓСЃ Completed РґР»СЏ СЂС–Р·РЅРёС… РІРµСЂСЃС–Р№ РѕРґРЅРѕРіРѕ С– С‚РѕРіРѕ Р¶ Workflow, "
+                + "С‚Рѕ РЅРµРѕР±С…С–РґРЅРѕ Р·РјС–РЅРёС‚Рё СЃС‚Р°С‚СѓСЃ РЅР° Not In Use. РўРѕР±С‚Рѕ, Сѓ СЃС‚Р°С‚СѓСЃС– Completed РїРѕРІРёРЅРµРЅ Р±СѓС‚Рё Workflow РѕСЃС‚Р°РЅРЅСЊРѕС— РІРµСЂСЃС–С—.\n"
+                + "РџСЂРё Р°РєС‚РёРІР°С†С–С— WF РІ РєР»С–С”РЅС‚С– РІРёРґР°Р»РёС‚Рё РїРѕРїРµСЂРµРґРЅС– РЅРµР°РєС‚РёРІРЅС– РІРµСЂСЃС–С—, РїРµСЂРµР·Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ СЃРµСЂРІС–СЃС–РІ РЅРµ РїРѕС‚СЂС–Р±РЅРѕ.");
         DocPicture picture = para_wf.appendPicture("src\\main\\resources\\WF1.png");
         picture.setWidth(400);
         picture.setHeight(150);
         picture.setHorizontalAlignment(ShapeHorizontalAlignment.Center);
-        picture.addCaption("Екран під час активації потоку операцій (Workflow)", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
+        picture.addCaption("Р•РєСЂР°РЅ РїС–Рґ С‡Р°СЃ Р°РєС‚РёРІР°С†С–С— РїРѕС‚РѕРєСѓ РѕРїРµСЂР°С†С–Р№ (Workflow)", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
         
         subheading_wf.applyStyle("myHeading_1");
         para_wf.applyStyle("paraStyle");
@@ -732,20 +788,20 @@ class GenerateSiebelPackageInstruction {
         getTaskList(tParamsList);
         UpdateTaskVersionList();
         Paragraph subheading_tsk = section.addParagraph();
-        subheading_tsk.appendText("Налаштування Task");
+        subheading_tsk.appendText("РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ Task");
 
         Paragraph para_tsk = section.addParagraph();
-        para_tsk.appendText("Виконується після компіляції SRF-файлів та їх заміни."
-                + " У Siebel Tools перевірити: якщо встановлено статус Completed для різних версій одного і того ж Task, "
-                + "то необхідно змінити статус на Not In Use. Тобто. у статусі \"Completed\" повинен бути тільки Task останньої версії.\n" 
-                + "Далі, щоб активувати завдання: увійдіть у клієнт Siebel (ENU) з правами адміністратора. "
-                + "Перейдіть до екрана «Administration - Business Process», а потім до подання «Task Deployment». "
-                + "У списку «Task Deployment» запитайте у полі «Name» потрібне завдання та натисніть кнопку «Activate». "
-                + "Після активації необхідно перевірити: версія активного завдання має збігатися з версією репозиторії.");
+        para_tsk.appendText("Р’РёРєРѕРЅСѓС”С‚СЊСЃСЏ РїС–СЃР»СЏ РєРѕРјРїС–Р»СЏС†С–С— SRF-С„Р°Р№Р»С–РІ С‚Р° С—С… Р·Р°РјС–РЅРё."
+                + " РЈ Siebel Tools РїРµСЂРµРІС–СЂРёС‚Рё: СЏРєС‰Рѕ РІСЃС‚Р°РЅРѕРІР»РµРЅРѕ СЃС‚Р°С‚СѓСЃ Completed РґР»СЏ СЂС–Р·РЅРёС… РІРµСЂСЃС–Р№ РѕРґРЅРѕРіРѕ С– С‚РѕРіРѕ Р¶ Task, "
+                + "С‚Рѕ РЅРµРѕР±С…С–РґРЅРѕ Р·РјС–РЅРёС‚Рё СЃС‚Р°С‚СѓСЃ РЅР° Not In Use. РўРѕР±С‚Рѕ. Сѓ СЃС‚Р°С‚СѓСЃС– \"Completed\" РїРѕРІРёРЅРµРЅ Р±СѓС‚Рё С‚С–Р»СЊРєРё Task РѕСЃС‚Р°РЅРЅСЊРѕС— РІРµСЂСЃС–С—.\n" 
+                + "Р”Р°Р»С–, С‰РѕР± Р°РєС‚РёРІСѓРІР°С‚Рё Р·Р°РІРґР°РЅРЅСЏ: СѓРІС–Р№РґС–С‚СЊ Сѓ РєР»С–С”РЅС‚ Siebel (ENU) Р· РїСЂР°РІР°РјРё Р°РґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂР°. "
+                + "РџРµСЂРµР№РґС–С‚СЊ РґРѕ РµРєСЂР°РЅР° В«Administration - Business ProcessВ», Р° РїРѕС‚С–Рј РґРѕ РїРѕРґР°РЅРЅСЏ В«Task DeploymentВ». "
+                + "РЈ СЃРїРёСЃРєСѓ В«Task DeploymentВ» Р·Р°РїРёС‚Р°Р№С‚Рµ Сѓ РїРѕР»С– В«NameВ» РїРѕС‚СЂС–Р±РЅРµ Р·Р°РІРґР°РЅРЅСЏ С‚Р° РЅР°С‚РёСЃРЅС–С‚СЊ РєРЅРѕРїРєСѓ В«ActivateВ». "
+                + "РџС–СЃР»СЏ Р°РєС‚РёРІР°С†С–С— РЅРµРѕР±С…С–РґРЅРѕ РїРµСЂРµРІС–СЂРёС‚Рё: РІРµСЂСЃС–СЏ Р°РєС‚РёРІРЅРѕРіРѕ Р·Р°РІРґР°РЅРЅСЏ РјР°С” Р·Р±С–РіР°С‚РёСЃСЏ Р· РІРµСЂСЃС–С”СЋ СЂРµРїРѕР·РёС‚РѕСЂС–С—.");
 
         Table tableTsk = section.addTable(true);
         String[][] dataTsk
-                = {new String[]{"Тип об'єкту", "Назва", "Версія репозиторію"},};
+                = {new String[]{"РўРёРї РѕР±'С”РєС‚Сѓ", "РќР°Р·РІР°", "Р’РµСЂСЃС–СЏ СЂРµРїРѕР·РёС‚РѕСЂС–СЋ"},};
 
         int rowCountTsk = tTasksList.size();
 
@@ -778,9 +834,9 @@ class GenerateSiebelPackageInstruction {
 
         //fill the style to Table
         Paragraph para_tsk2 = section.addParagraph();
-        para_tsk2.appendText("У Siebel Tools перевірити: якщо встановлено статус Completed для різних версій одного і того ж Task, "
-                + "то необхідно змінити статус на Not In Use. Тобто, у статусі Completed повинен бути Task останньої версії.\n"
-                + "При активації Task в клієнті видалити попередні неактивні версії, перезавантаження сервісів не потрібно.");
+        para_tsk2.appendText("РЈ Siebel Tools РїРµСЂРµРІС–СЂРёС‚Рё: СЏРєС‰Рѕ РІСЃС‚Р°РЅРѕРІР»РµРЅРѕ СЃС‚Р°С‚СѓСЃ Completed РґР»СЏ СЂС–Р·РЅРёС… РІРµСЂСЃС–Р№ РѕРґРЅРѕРіРѕ С– С‚РѕРіРѕ Р¶ Task, "
+                + "С‚Рѕ РЅРµРѕР±С…С–РґРЅРѕ Р·РјС–РЅРёС‚Рё СЃС‚Р°С‚СѓСЃ РЅР° Not In Use. РўРѕР±С‚Рѕ, Сѓ СЃС‚Р°С‚СѓСЃС– Completed РїРѕРІРёРЅРµРЅ Р±СѓС‚Рё Task РѕСЃС‚Р°РЅРЅСЊРѕС— РІРµСЂСЃС–С—.\n"
+                + "РџСЂРё Р°РєС‚РёРІР°С†С–С— Task РІ РєР»С–С”РЅС‚С– РІРёРґР°Р»РёС‚Рё РїРѕРїРµСЂРµРґРЅС– РЅРµР°РєС‚РёРІРЅС– РІРµСЂСЃС–С—, РїРµСЂРµР·Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ СЃРµСЂРІС–СЃС–РІ РЅРµ РїРѕС‚СЂС–Р±РЅРѕ.");
         
         subheading_tsk.applyStyle("myHeading_1");
         para_tsk.applyStyle("paraStyle");
@@ -789,24 +845,25 @@ class GenerateSiebelPackageInstruction {
         //END TASKS
 
         Paragraph subheading_env = section.addParagraph();
-        subheading_env.appendText("Перенос оточення");
+        subheading_env.appendText("РџРµСЂРµРЅРѕСЃ РѕС‚РѕС‡РµРЅРЅСЏ");
         
         //BEGIN OTHER
         if (bEIMConfigFile)
         {
         getEIMList(tParamsList);
+        CreateCatalog(sPathBase+"300-environment\\300-Other");
         Paragraph subheading_EIM2 = section.addParagraph();
-        subheading_EIM2.appendText("Інші налаштування");
+        subheading_EIM2.appendText("Р†РЅС€С– РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ");
 
         Paragraph para_eim = section.addParagraph();
-        para_eim.appendText("Скопіюйте із заміною файли *.ifb з директорії "
+        para_eim.appendText("РЎРєРѕРїС–СЋР№С‚Рµ С–Р· Р·Р°РјС–РЅРѕСЋ С„Р°Р№Р»Рё *.ifb Р· РґРёСЂРµРєС‚РѕСЂС–С— "
                 + sPathBase + "300-environment\\300-Other "
-                + "до директорії C:\\Siebel\\16.0.0.0.0\\ses\\siebsrvr\\ADMIN siebelapp серверу");
+                + "РґРѕ РґРёСЂРµРєС‚РѕСЂС–С— C:\\Siebel\\16.0.0.0.0\\ses\\siebsrvr\\ADMIN siebelapp СЃРµСЂРІРµСЂСѓ");
 
         Table tableEIM = section.addTable(true);
 
         String[][] dataEIM
-                = {new String[]{"Тип об'єкту", "Назва файлу",},};
+                = {new String[]{"РўРёРї РѕР±'С”РєС‚Сѓ", "РќР°Р·РІР° С„Р°Р№Р»Сѓ",},};
 
         int rowCountEIM= tEIMList.size();
         int columnCountEIM = 2;
@@ -844,22 +901,22 @@ class GenerateSiebelPackageInstruction {
         {
         getCommPkgList(tParamsList);
         Paragraph subheading_CommPkg = section.addParagraph();
-        subheading_CommPkg.appendText("Імпорт шаблонів комунікацій");
+        subheading_CommPkg.appendText("Р†РјРїРѕСЂС‚ С€Р°Р±Р»РѕРЅС–РІ РєРѕРјСѓРЅС–РєР°С†С–Р№");
         
         CreateCatalog(sPathBase+"300-environment\\323-Comm Package");
 
         Paragraph para_CommPkg = section.addParagraph();
         para_CommPkg.appendText(
-                  "Щоб імпортувати Comm Package, відкрийте клієнт Siebel із правами адміністратора. "
-                + "Перейдіть до екрана «Application Deploy Management», а потім до «Deployment Sessions». "
-                + "Далі, в меню виберіть \"Deploy From Local File\" і папку, де збережений файл: "
+                  "Р©РѕР± С–РјРїРѕСЂС‚СѓРІР°С‚Рё Comm Package, РІС–РґРєСЂРёР№С‚Рµ РєР»С–С”РЅС‚ Siebel С–Р· РїСЂР°РІР°РјРё Р°РґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂР°. "
+                + "РџРµСЂРµР№РґС–С‚СЊ РґРѕ РµРєСЂР°РЅР° В«Application Deploy ManagementВ», Р° РїРѕС‚С–Рј РґРѕ В«Deployment SessionsВ». "
+                + "Р”Р°Р»С–, РІ РјРµРЅСЋ РІРёР±РµСЂС–С‚СЊ \"Deploy From Local File\" С– РїР°РїРєСѓ, РґРµ Р·Р±РµСЂРµР¶РµРЅРёР№ С„Р°Р№Р»: "
                 + sPathBase +"300-environment\\323-Comm Package.\n" +
-                  "Для перевірки необхідно зайти до «Administration – Communications», "
-                + "«All Templates» та виконати пошук шаблонів, зазначених у таблиці нижче:");
+                  "Р”Р»СЏ РїРµСЂРµРІС–СЂРєРё РЅРµРѕР±С…С–РґРЅРѕ Р·Р°Р№С‚Рё РґРѕ В«Administration вЂ“ CommunicationsВ», "
+                + "В«All TemplatesВ» С‚Р° РІРёРєРѕРЅР°С‚Рё РїРѕС€СѓРє С€Р°Р±Р»РѕРЅС–РІ, Р·Р°Р·РЅР°С‡РµРЅРёС… Сѓ С‚Р°Р±Р»РёС†С– РЅРёР¶С‡Рµ:");
         Table tableCommPkg = section.addTable(true);
 
         String[][] dataCommPkg
-                = {new String[]{"Тип об'єкту", "Назва шаблону комунікації","Назва файлу",},};
+                = {new String[]{"РўРёРї РѕР±'С”РєС‚Сѓ", "РќР°Р·РІР° С€Р°Р±Р»РѕРЅСѓ РєРѕРјСѓРЅС–РєР°С†С–С—","РќР°Р·РІР° С„Р°Р№Р»Сѓ",},};
 
         int rowCountCommPkg = tCommPkgList.size();
         int columnCountCommPkg = 3;
@@ -896,34 +953,34 @@ class GenerateSiebelPackageInstruction {
         {
         getJavaScriptList(tParamsList);
         Paragraph subheading_JavaScript = section.addParagraph();
-        subheading_JavaScript.appendText("Маніфест");
+        subheading_JavaScript.appendText("РњР°РЅС–С„РµСЃС‚");
         CreateCatalog(sPathBase+"300-environment\\395-Java Script File");
 
         Paragraph para_JavaScript = section.addParagraph();
         para_JavaScript.appendText(
-                  "Перенести " +sPathBase +"300-environment\\395-Java Script File\\*.js,(дивись таблицю ниже), із збереженням поточної версії файлу  до C:\\Siebel\\16.0.0.0.0\\eappweb\\public\\SCRIPTS\\siebel\\custom на сервері siebelapp.\n" +
-                    "В Administration Application - Manifest Administration створити запис\n" +
+                  "РџРµСЂРµРЅРµСЃС‚Рё " +sPathBase +"300-environment\\395-Java Script File\\*.js,(РґРёРІРёСЃСЊ С‚Р°Р±Р»РёС†СЋ РЅРёР¶Рµ), С–Р· Р·Р±РµСЂРµР¶РµРЅРЅСЏРј РїРѕС‚РѕС‡РЅРѕС— РІРµСЂСЃС–С— С„Р°Р№Р»Сѓ  РґРѕ C:\\Siebel\\16.0.0.0.0\\eappweb\\public\\SCRIPTS\\siebel\\custom РЅР° СЃРµСЂРІРµСЂС– siebelapp.\n" +
+                    "Р’ Administration Application - Manifest Administration СЃС‚РІРѕСЂРёС‚Рё Р·Р°РїРёСЃ\n" +
                     " \n" +
                     "	UI Objects:\n" +
                     "		Inactive = N\n" +
                     "		Type = Applet\n" +
                     "		Usage Type = Physical Renderer\n" +
-                    "		Name = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n" +
+                    "		Name = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX (РґРёРІРёСЃСЊ С‚Р°Р±Р»РёС†СЋ)\n" +
                     "	Object Expression:		\n" +
                     "		Inactive Flag = N\n" +
                     "		Level = 1\n" +
                     "	Files\n" +
                     "		Inactive = N\n" +
-                    "		Name = XXXXXXXXXXXXXXXXXXXXXXXXXX.js");
-        DocPicture picture = para_JavaScript.appendPicture("src\\main\\resources\\Манифест1.png");
+                    "		Name = XXXXXXXXXXXXXXXXXXXXXXXXXX.js (РґРёРІРёСЃСЊ С‚Р°Р±Р»РёС†СЋ)");
+        DocPicture picture = para_JavaScript.appendPicture("src\\main\\resources\\Manifest1.png");
         picture.setWidth(400);
         picture.setHeight(300);
         picture.setHorizontalAlignment(ShapeHorizontalAlignment.Center);
-        picture.addCaption("Приклад налашування маніфесту", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
+        picture.addCaption("РџСЂРёРєР»Р°Рґ РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ РјР°РЅС–С„РµСЃС‚Сѓ", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
         Table tableJavaScript = section.addTable(true);
 
         String[][] dataJavaScript
-                = {new String[]{"Тип об'єкту", "Назва","Назва файлу",},};
+                = {new String[]{"РўРёРї РѕР±'С”РєС‚Сѓ", "РќР°Р·РІР°","РќР°Р·РІР° С„Р°Р№Р»Сѓ",},};
 
         int rowCountJavaScript = tJavaScriptList.size();
         int columnCountJavaScript = 3;
@@ -960,18 +1017,18 @@ class GenerateSiebelPackageInstruction {
         {
         getSysPrefList(tParamsList);
         Paragraph subheading_env2 = section.addParagraph();
-        subheading_env2.appendText("Встановлення системних налаштувань");
+        subheading_env2.appendText("Р’СЃС‚Р°РЅРѕРІР»РµРЅРЅСЏ СЃРёСЃС‚РµРјРЅРёС… РЅР°Р»Р°С€С‚СѓРІР°РЅСЊ");
 
         Paragraph para_env = section.addParagraph();
-        para_env.appendText("Увійдіть у клієнт Siebel (ENU) з правами адміністратора. "
-                + "Перейдіть до екрану «Administration - Application», "
-                + "а потім до виду «System Preferences».\n"
-                + "***Дивись коментарі у стовбчику «Опис» щодо встановлення параметрів для продуктивного або тестового середовищя");
+        para_env.appendText("РЈРІС–Р№РґС–С‚СЊ Сѓ РєР»С–С”РЅС‚ Siebel (ENU) Р· РїСЂР°РІР°РјРё Р°РґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂР°. "
+                + "РџРµСЂРµР№РґС–С‚СЊ РґРѕ РµРєСЂР°РЅСѓ В«Administration - ApplicationВ», "
+                + "Р° РїРѕС‚С–Рј РґРѕ РІРёРґСѓ В«System PreferencesВ».\n"
+                + "***Р”РёРІРёСЃСЊ РєРѕРјРµРЅС‚Р°СЂС– Сѓ СЃС‚РѕРІР±С‡РёРєСѓ В«РћРїРёСЃВ» С‰РѕРґРѕ РІСЃС‚Р°РЅРѕРІР»РµРЅРЅСЏ РїР°СЂР°РјРµС‚СЂС–РІ РґР»СЏ РїСЂРѕРґСѓРєС‚РёРІРЅРѕРіРѕ Р°Р±Рѕ С‚РµСЃС‚РѕРІРѕРіРѕ СЃРµСЂРµРґРѕРІРёС‰СЏ");
 
         Table tableSysPref = section.addTable(true);
 
         String[][] dataSysPref
-                = {new String[]{"Системне налаштування", "Значення", "Опис"},};
+                = {new String[]{"РЎРёСЃС‚РµРјРЅРµ РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ", "Р—РЅР°С‡РµРЅРЅСЏ", "РћРїРёСЃ"},};
 
         int rowCountSysPref = tSysPrefList.size();
         int columnCountSysPref = 3;
@@ -1009,17 +1066,17 @@ class GenerateSiebelPackageInstruction {
         if (bPicture)
         { 
         Paragraph subheading_pic = section.addParagraph();
-        subheading_pic.appendText("Перенесення файлів зображень");
+        subheading_pic.appendText("РџРµСЂРµРЅРµСЃРµРЅРЅСЏ С„Р°Р№Р»С–РІ Р·РѕР±СЂР°Р¶РµРЅСЊ");
         subheading_pic.applyStyle("myHeading_1");
         
         CreateCatalog(sPathBase+"300-environment\\398-Bitmap File");
         
         Paragraph para_pic = section.addParagraph();
-        para_pic.appendText("Скопіюйте із заміною файли з директорії "
+        para_pic.appendText("РЎРєРѕРїС–СЋР№С‚Рµ С–Р· Р·Р°РјС–РЅРѕСЋ С„Р°Р№Р»Рё Р· РґРёСЂРµРєС‚РѕСЂС–С— "
                 + sPathBase +"300-environment\\398-Bitmap File "
-                + "до директорії "
+                + "РґРѕ РґРёСЂРµРєС‚РѕСЂС–С— "
                 + "C:\\Siebel\\16.0.0.0.0\\eappweb\\public\\IMAGES "
-                + "серверу siebelapp");
+                + "СЃРµСЂРІРµСЂСѓ siebelapp");
         para_pic.applyStyle("paraStyle");    
         }
         //END PICTURES
@@ -1030,23 +1087,23 @@ class GenerateSiebelPackageInstruction {
         {    
         getSQLList(tParamsList);    
         Paragraph subheading_sql = section.addParagraph();
-        subheading_sql.appendText("Внесення змін до схем бази даних");
+        subheading_sql.appendText("Р’РЅРµСЃРµРЅРЅСЏ Р·РјС–РЅ РґРѕ СЃС…РµРј Р±Р°Р·Рё РґР°РЅРёС…");
         subheading_sql.applyStyle("myHeading_1");
 
         Paragraph subheading_sql2 = section.addParagraph();
-        subheading_sql2.appendText("Виконання скриптів оновлення бази даних");
+        subheading_sql2.appendText("Р’РёРєРѕРЅР°РЅРЅСЏ СЃРєСЂРёРїС‚С–РІ РѕРЅРѕРІР»РµРЅРЅСЏ Р±Р°Р·Рё РґР°РЅРёС…");
         subheading_sql2.applyStyle("myHeading_2");
         
         Paragraph para_sql = section.addParagraph();
-        para_sql.appendText("Під користувачем SIEBEL виконати скрипти в базі даних:");
+        para_sql.appendText("РџС–Рґ РєРѕСЂРёСЃС‚СѓРІР°С‡РµРј SIEBEL РІРёРєРѕРЅР°С‚Рё СЃРєСЂРёРїС‚Рё РІ Р±Р°Р·С– РґР°РЅРёС…:");
         para_sql.applyStyle("paraStyle");
         
-        CreateCatalog(sPathBase+"300-environment\\100-СУБД");
+        CreateCatalog(sPathBase+"300-environment\\100-РЎРЈР‘Р”");
         
         Table tableSQL = section.addTable(true);
-        String sPathSQL = sPathBase + "100-СУБД\\";
+        String sPathSQL = sPathBase + "100-РЎРЈР‘Р”\\";
         String[][] dataSQL
-                = {new String[]{"Тип об'єкту", "Назва об'єкту", "Скрипт"},};
+                = {new String[]{"РўРёРї РѕР±'С”РєС‚Сѓ", "РќР°Р·РІР° РѕР±'С”РєС‚Сѓ", "РЎРєСЂРёРїС‚"},};
 
         int rowCountSQL = tSQLList.size();
         int columnCountSQL = 3;
@@ -1083,37 +1140,37 @@ class GenerateSiebelPackageInstruction {
         if (bSRF)
         {
         Paragraph subheading_srf = section.addParagraph();
-        subheading_srf.appendText("Заміна SRF-файлу (репозиторія)");
+        subheading_srf.appendText("Р—Р°РјС–РЅР° SRF-С„Р°Р№Р»Сѓ (СЂРµРїРѕР·РёС‚РѕСЂС–СЏ)");
 
         Paragraph subheading_srf2 = section.addParagraph();
-        subheading_srf2.appendText("Підготовчі роботи");
+        subheading_srf2.appendText("РџС–РґРіРѕС‚РѕРІС‡С– СЂРѕР±РѕС‚Рё");
 
         Paragraph para_srf = section.addParagraph();
         para_srf.appendCheckBox();
-        para_srf.appendText("Перед встановленням нових srf файлів на систему Siebel CRM необхідно виконати такі дії:\n"
-                + "1.	Погодити час зупинки системи;\n"
-                + "2.	Вимкнути користувачів від системи;\n"
-                + "3.	Зупинити послуги системи Siebel CRM.\n"
-                + "4.	Зберегти поточний файл SRF (зробити архівну копію)");
+        para_srf.appendText("РџРµСЂРµРґ РІСЃС‚Р°РЅРѕРІР»РµРЅРЅСЏРј РЅРѕРІРёС… srf С„Р°Р№Р»С–РІ РЅР° СЃРёСЃС‚РµРјСѓ Siebel CRM РЅРµРѕР±С…С–РґРЅРѕ РІРёРєРѕРЅР°С‚Рё С‚Р°РєС– РґС–С—:\n"
+                + "1.	РџРѕРіРѕРґРёС‚Рё С‡Р°СЃ Р·СѓРїРёРЅРєРё СЃРёСЃС‚РµРјРё;\n"
+                + "2.	Р’РёРјРєРЅСѓС‚Рё РєРѕСЂРёСЃС‚СѓРІР°С‡С–РІ РІС–Рґ СЃРёСЃС‚РµРјРё;\n"
+                + "3.	Р—СѓРїРёРЅРёС‚Рё РїРѕСЃР»СѓРіРё СЃРёСЃС‚РµРјРё Siebel CRM.\n"
+                + "4.	Р—Р±РµСЂРµРіС‚Рё РїРѕС‚РѕС‡РЅРёР№ С„Р°Р№Р» SRF (Р·СЂРѕР±РёС‚Рё Р°СЂС…С–РІРЅСѓ РєРѕРїС–СЋ)");
 
         Paragraph subheading_srf3 = section.addParagraph();
-        subheading_srf3.appendText("Заміна SRF-файлу ");
+        subheading_srf3.appendText("Р—Р°РјС–РЅР° SRF-С„Р°Р№Р»Сѓ ");
         
 
         Paragraph para_srf3 = section.addParagraph();
         para_srf3.appendText(
-                "Далі необхідно замінити SRF-файли на середовищі, де ведеться установка пакета. "
-                + "На тестовому середовищі необхідно зупинити службу Siebel Server із заміною SRF. "
-                + "На продуктивному середовищі необхідно по черзі виконати зупинку служби Siebel Server "
-                + "із заміною SRF на всіх серверах Siebel (siebelbpm - 192.168.100.79, siebelapp - 192.168.100.80, vicisieb - 192.168.100.120).\n"
-                + "Порядок заміни SRF-файлів на продуктивному середовищі наступний:\n"
-                + "•	Зупинити службу Siebel Server на сервері vicisieb (192.168.100.120).\n"
-                + "•	Замінити файли SRF.\n"
-                + "Отриманий в результаті компіляції RUS файл siebel_sia.srf розмістити в папці C:\\Siebel\\16.0.0.0.0\\ses\\siebsrvr\\OBJECTS\\rus, замінивши наявний.\n"
-                + "Отриманий в результаті компіляції ENU файл siebel_sia.srf розмістити в папці C:\\Siebel\\16.0.0.0.0\\ses\\siebsrvr\\OBJECTS\\enu, замінивши наявний.\n"
-                + "•	Здійснити запуск служби Siebel Server, дочекатися закінчення запуску.\n"
-                + "•	Виконати ту ж процедуру із сервером siebelapp (192.168.100.80) та з сервером siebelbpm (192.168.100.79).\n"
-                + "Такий режим запуску дозволяє забезпечити безперервність доступності сервісу мобільного додатка з Інтернету.");
+                "Р”Р°Р»С– РЅРµРѕР±С…С–РґРЅРѕ Р·Р°РјС–РЅРёС‚Рё SRF-С„Р°Р№Р»Рё РЅР° СЃРµСЂРµРґРѕРІРёС‰С–, РґРµ РІРµРґРµС‚СЊСЃСЏ СѓСЃС‚Р°РЅРѕРІРєР° РїР°РєРµС‚Р°. "
+                + "РќР° С‚РµСЃС‚РѕРІРѕРјСѓ СЃРµСЂРµРґРѕРІРёС‰С– РЅРµРѕР±С…С–РґРЅРѕ Р·СѓРїРёРЅРёС‚Рё СЃР»СѓР¶Р±Сѓ Siebel Server С–Р· Р·Р°РјС–РЅРѕСЋ SRF. "
+                + "РќР° РїСЂРѕРґСѓРєС‚РёРІРЅРѕРјСѓ СЃРµСЂРµРґРѕРІРёС‰С– РЅРµРѕР±С…С–РґРЅРѕ РїРѕ С‡РµСЂР·С– РІРёРєРѕРЅР°С‚Рё Р·СѓРїРёРЅРєСѓ СЃР»СѓР¶Р±Рё Siebel Server "
+                + "С–Р· Р·Р°РјС–РЅРѕСЋ SRF РЅР° РІСЃС–С… СЃРµСЂРІРµСЂР°С… Siebel (siebelbpm - 192.168.100.79, siebelapp - 192.168.100.80, vicisieb - 192.168.100.120).\n"
+                + "РџРѕСЂСЏРґРѕРє Р·Р°РјС–РЅРё SRF-С„Р°Р№Р»С–РІ РЅР° РїСЂРѕРґСѓРєС‚РёРІРЅРѕРјСѓ СЃРµСЂРµРґРѕРІРёС‰С– РЅР°СЃС‚СѓРїРЅРёР№:\n"
+                + "вЂў	Р—СѓРїРёРЅРёС‚Рё СЃР»СѓР¶Р±Сѓ Siebel Server РЅР° СЃРµСЂРІРµСЂС– vicisieb (192.168.100.120).\n"
+                + "вЂў	Р—Р°РјС–РЅРёС‚Рё С„Р°Р№Р»Рё SRF.\n"
+                + "РћС‚СЂРёРјР°РЅРёР№ РІ СЂРµР·СѓР»СЊС‚Р°С‚С– РєРѕРјРїС–Р»СЏС†С–С— RUS С„Р°Р№Р» siebel_sia.srf СЂРѕР·РјС–СЃС‚РёС‚Рё РІ РїР°РїС†С– C:\\Siebel\\16.0.0.0.0\\ses\\siebsrvr\\OBJECTS\\rus, Р·Р°РјС–РЅРёРІС€Рё РЅР°СЏРІРЅРёР№.\n"
+                + "РћС‚СЂРёРјР°РЅРёР№ РІ СЂРµР·СѓР»СЊС‚Р°С‚С– РєРѕРјРїС–Р»СЏС†С–С— ENU С„Р°Р№Р» siebel_sia.srf СЂРѕР·РјС–СЃС‚РёС‚Рё РІ РїР°РїС†С– C:\\Siebel\\16.0.0.0.0\\ses\\siebsrvr\\OBJECTS\\enu, Р·Р°РјС–РЅРёРІС€Рё РЅР°СЏРІРЅРёР№.\n"
+                + "вЂў	Р—РґС–Р№СЃРЅРёС‚Рё Р·Р°РїСѓСЃРє СЃР»СѓР¶Р±Рё Siebel Server, РґРѕС‡РµРєР°С‚РёСЃСЏ Р·Р°РєС–РЅС‡РµРЅРЅСЏ Р·Р°РїСѓСЃРєСѓ.\n"
+                + "вЂў	Р’РёРєРѕРЅР°С‚Рё С‚Сѓ Р¶ РїСЂРѕС†РµРґСѓСЂСѓ С–Р· СЃРµСЂРІРµСЂРѕРј siebelapp (192.168.100.80) С‚Р° Р· СЃРµСЂРІРµСЂРѕРј siebelbpm (192.168.100.79).\n"
+                + "РўР°РєРёР№ СЂРµР¶РёРј Р·Р°РїСѓСЃРєСѓ РґРѕР·РІРѕР»СЏС” Р·Р°Р±РµР·РїРµС‡РёС‚Рё Р±РµР·РїРµСЂРµСЂРІРЅС–СЃС‚СЊ РґРѕСЃС‚СѓРїРЅРѕСЃС‚С– СЃРµСЂРІС–СЃСѓ РјРѕР±С–Р»СЊРЅРѕРіРѕ РґРѕРґР°С‚РєР° Р· Р†РЅС‚РµСЂРЅРµС‚Сѓ.");
         subheading_srf.applyStyle("myHeading_1");
         subheading_srf2.applyStyle("myHeading_2");
         subheading_srf3.applyStyle("myHeading_2");
@@ -1127,19 +1184,19 @@ class GenerateSiebelPackageInstruction {
         {
         getEAIDataMapList(tParamsList);
         Paragraph subheading_eai = section.addParagraph();
-        subheading_eai.appendText("Перенос EAI DataMap");
+        subheading_eai.appendText("РџРµСЂРµРЅРѕСЃ EAI DataMap");
         CreateCatalog(sPathBase+"300-environment\\318-EAI DataMap");
 
         Paragraph para_EAI = section.addParagraph();
-        para_EAI.appendText("Увійдіть у клієнт Siebel (ENU) з правами адміністратора. "
-                + "Перейдіть до екрану «Administration - Integration», а потім до «Data Maps». "
-                + "Далі виконайте імпорт файлів (Menu – Import Data map)   з директорії "
-                + sPathBase +"300-Оточення\\318-EAI DataMap.");
+        para_EAI.appendText("РЈРІС–Р№РґС–С‚СЊ Сѓ РєР»С–С”РЅС‚ Siebel (ENU) Р· РїСЂР°РІР°РјРё Р°РґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂР°. "
+                + "РџРµСЂРµР№РґС–С‚СЊ РґРѕ РµРєСЂР°РЅСѓ В«Administration - IntegrationВ», Р° РїРѕС‚С–Рј РґРѕ В«Data MapsВ». "
+                + "Р”Р°Р»С– РІРёРєРѕРЅР°Р№С‚Рµ С–РјРїРѕСЂС‚ С„Р°Р№Р»С–РІ (Menu вЂ“ Import Data map)   Р· РґРёСЂРµРєС‚РѕСЂС–С— "
+                + sPathBase +"300-РћС‚РѕС‡РµРЅРЅСЏ\\318-EAI DataMap.");
 
         Table tableEAI = section.addTable(true);
         String sPathEAIDataMap = sPathBase + "300-environment\\318-EAI DataMap";
         String[][] dataEAI
-                = {new String[]{"Тип об'єкту", "Назва картки даних", "Файл"},};
+                = {new String[]{"РўРёРї РѕР±'С”РєС‚Сѓ", "РќР°Р·РІР° РєР°СЂС‚РєРё РґР°РЅРёС…", "Р¤Р°Р№Р»"},};
 
         int rowCountEAI = tEAIDataMapList.size();
         int columnCountEAI = 3;
@@ -1176,9 +1233,9 @@ class GenerateSiebelPackageInstruction {
         picture.addCaption("EAI DataMap", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
 
         Paragraph para_EAI_end = section.addParagraph();
-        para_EAI_end.appendText("Після імпорту потрібно почистити кеш: "
-                + "перейдіть до екрану «Administration - Integration, "
-                + "а потім до виду  «EAI Dispatcher Service View  (Rule Sets)» і натисніть «Clear Cache».");
+        para_EAI_end.appendText("РџС–СЃР»СЏ С–РјРїРѕСЂС‚Сѓ РїРѕС‚СЂС–Р±РЅРѕ РїРѕС‡РёСЃС‚РёС‚Рё РєРµС€: "
+                + "РїРµСЂРµР№РґС–С‚СЊ РґРѕ РµРєСЂР°РЅСѓ В«Administration - Integration, "
+                + "Р° РїРѕС‚С–Рј РґРѕ РІРёРґСѓ  В«EAI Dispatcher Service View  (Rule Sets)В» С– РЅР°С‚РёСЃРЅС–С‚СЊ В«Clear CacheВ».");
         subheading_eai.applyStyle("myHeading_1");
         para_EAI.applyStyle("paraStyle");
         para_EAI_end.applyStyle("paraStyle");
@@ -1189,20 +1246,20 @@ class GenerateSiebelPackageInstruction {
         if (bJob)
         {
             Paragraph subheading_job = section.addParagraph();
-            subheading_job.appendText("Створення Job");
+            subheading_job.appendText("РЎС‚РІРѕСЂРµРЅРЅСЏ Job");
             
             Paragraph para_job = section.addParagraph();
             para_job.appendText(
-                    "Відкрити в ENU “Administration – Server Management” – “Jobs”\n" +
-                    "Створити Job\n" +
+                    "Р’С–РґРєСЂРёС‚Рё РІ ENU вЂњAdministration вЂ“ Server ManagementвЂќ вЂ“ вЂњJobsвЂќ\n" +
+                    "РЎС‚РІРѕСЂРёС‚Рё Job\n" +
                     "Component | Job \"#######################\"\n" +
-                    "Delete interval “XX hour”\n" +
-                    "Repeat Unit=”Minutes”\n" +
-                    "Repeat Interval=”XX”\n" +
+                    "Delete interval вЂњXX hourвЂќ\n" +
+                    "Repeat Unit=вЂќMinutesвЂќ\n" +
+                    "Repeat Interval=вЂќXXвЂќ\n" +
                     "Repeating? \"XXX\"\n" +
-                    "Додати параметри (Job parameters)\n" +
+                    "Р”РѕРґР°С‚Рё РїР°СЂР°РјРµС‚СЂРё (Job parameters)\n" +
                     "Workflow Process Name = XXXXXXXXXXXXXXXXXXXXX\n" +
-                    "Після цього натиснути \"Submit Job\"");   
+                    "РџС–СЃР»СЏ С†СЊРѕРіРѕ РЅР°С‚РёСЃРЅСѓС‚Рё \"Submit Job\"");   
             
             DocPicture picture = para_job.appendPicture("src\\main\\resources\\Job1.png");
             picture.setHorizontalAlignment(ShapeHorizontalAlignment.Center);
@@ -1210,7 +1267,7 @@ class GenerateSiebelPackageInstruction {
             picture.setWidth(400);
             picture.setHeight(300);
             picture.setHorizontalAlignment(ShapeHorizontalAlignment.Center);
-            picture.addCaption("Створення Job", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
+            picture.addCaption("РЎС‚РІРѕСЂРµРЅРЅСЏ Job", CaptionNumberingFormat.Number, CaptionPosition.Below_Item);
             subheading_job.applyStyle("myHeading_1");
             para_job.applyStyle("paraStyle");            
             
@@ -1219,15 +1276,15 @@ class GenerateSiebelPackageInstruction {
         
 
         Paragraph subheading_end = section.addParagraph();
-        subheading_end.appendText("Перевірка працездатності");
+        subheading_end.appendText("РџРµСЂРµРІС–СЂРєР° РїСЂР°С†РµР·РґР°С‚РЅРѕСЃС‚С–");
 
         Paragraph para_end = section.addParagraph();
-        para_end.appendText("Після встановлення пакета, необхідно переконатися, що основний функціонал системи, "
-                + "такий як: відкриття стартової сторінки, вхід до системи, вихід із системи, "
-                + "відкриття основних видів, друк звітів і т.д. перебуває у робочому стані. "
-                + "Для цього перейдіть за посиланням http://siebtapp/fins_rus для тестового середовища TEST, "
-                + "(http://siebelapp/fins_rus - для продуктивного середовища PROD) "
-                + "та виконайте необхідні перевірки функціоналу, згідно Release notes");
+        para_end.appendText("РџС–СЃР»СЏ РІСЃС‚Р°РЅРѕРІР»РµРЅРЅСЏ РїР°РєРµС‚Р°, РЅРµРѕР±С…С–РґРЅРѕ РїРµСЂРµРєРѕРЅР°С‚РёСЃСЏ, С‰Рѕ РѕСЃРЅРѕРІРЅРёР№ С„СѓРЅРєС†С–РѕРЅР°Р» СЃРёСЃС‚РµРјРё, "
+                + "С‚Р°РєРёР№ СЏРє: РІС–РґРєСЂРёС‚С‚СЏ СЃС‚Р°СЂС‚РѕРІРѕС— СЃС‚РѕСЂС–РЅРєРё, РІС…С–Рґ РґРѕ СЃРёСЃС‚РµРјРё, РІРёС…С–Рґ С–Р· СЃРёСЃС‚РµРјРё, "
+                + "РІС–РґРєСЂРёС‚С‚СЏ РѕСЃРЅРѕРІРЅРёС… РІРёРґС–РІ, РґСЂСѓРє Р·РІС–С‚С–РІ С– С‚.Рґ. РїРµСЂРµР±СѓРІР°С” Сѓ СЂРѕР±РѕС‡РѕРјСѓ СЃС‚Р°РЅС–. "
+                + "Р”Р»СЏ С†СЊРѕРіРѕ РїРµСЂРµР№РґС–С‚СЊ Р·Р° РїРѕСЃРёР»Р°РЅРЅСЏРј http://siebtapp/fins_rus РґР»СЏ С‚РµСЃС‚РѕРІРѕРіРѕ СЃРµСЂРµРґРѕРІРёС‰Р° TEST, "
+                + "(http://siebelapp/fins_rus - РґР»СЏ РїСЂРѕРґСѓРєС‚РёРІРЅРѕРіРѕ СЃРµСЂРµРґРѕРІРёС‰Р° PROD) "
+                + "С‚Р° РІРёРєРѕРЅР°Р№С‚Рµ РЅРµРѕР±С…С–РґРЅС– РїРµСЂРµРІС–СЂРєРё С„СѓРЅРєС†С–РѕРЅР°Р»Сѓ, Р·РіС–РґРЅРѕ Release notes");
 
         // Apply built-in style to heading and subheadings
         // so that it is easily distinguishable
@@ -1304,7 +1361,7 @@ class GenerateSiebelPackageInstruction {
                 tParamsList.add(new TParams(categoryOfObject, typeOfObject, nameOfObject));
                 System.out.print(categoryOfObject + " " + typeOfObject + " " + nameOfObject);
                 System.out.println();
-                if (true) {//categoryOfObject.equalsIgnoreCase("200-Репозиторій")
+                if (true) {//categoryOfObject.equalsIgnoreCase("200-Р РµРїРѕР·РёС‚РѕСЂС–Р№")
                     switch (typeOfObject) {
                         case ("201-Table"):
                             bTable = true;
@@ -1357,8 +1414,11 @@ class GenerateSiebelPackageInstruction {
                         case ("235-Icon Map"):
                             bPicture = true;
                             break;
+                        case ("392-Web Template File"):
+                            bWebTemplate = true;
+                            break;
                         case ("300-Other"):
-                            sError = sError + " объект типа " + categoryOfObject + " " + nameOfObject + " не найден. ";
+                            sError = sError + " РѕР±СЉРµРєС‚ С‚РёРїР° " + categoryOfObject + " " + nameOfObject + " РЅРµ РЅР°Р№РґРµРЅ. ";
                             break;
                         case ("301-System Preferences"):
                             bSystemPreferences = true;
@@ -1408,7 +1468,7 @@ class GenerateSiebelPackageInstruction {
                         case ("112-View"):
                             bSQL = true;
                             break;
-                        case ("112-Вид"):
+                        case ("112-Р’РёРґ"):
                             bSQL = true;
                             break;
                         case ("131-Package"):
@@ -1421,7 +1481,7 @@ class GenerateSiebelPackageInstruction {
                             bSavedQueries = true;
                             break;    
                         default:
-                            sError = sError + " объект типа " + categoryOfObject + " " + nameOfObject + " не найден. ";
+                            sError = sError + " РѕР±СЉРµРєС‚ С‚РёРїР° " + categoryOfObject + " " + nameOfObject + " РЅРµ РЅР°Р№РґРµРЅ. ";
                             break;
                     }
                 }
@@ -1570,6 +1630,17 @@ class GenerateSiebelPackageInstruction {
         }
     }    
     
+        public static class TWT {
+        private String type;
+        private String name;
+        private String file;
+        public TWT(String type, String name, String file) {
+            this.type = type;
+            this.name = name;
+            this.file = file;
+        }
+    }    
+    
     public static class TEIM {
         private String type;
         private String name;
@@ -1619,6 +1690,20 @@ class GenerateSiebelPackageInstruction {
                 WF.name = currentElement.name;
                 WF.version = -1;
                 tWFList.add(WF);
+            }
+        }
+    }
+    
+    static private void getWebTemplatesList(ArrayList<TParams> tParamsList) {
+        Iterator<TParams> iterator = tParamsList.iterator();
+        while (iterator.hasNext()) {
+            TParams currentElement = iterator.next();
+            if (currentElement.type.equals("392-Web Template File")) {
+                System.out.println("WTemplate is found " + currentElement.name);
+                TWT WT = new TWT(currentElement.name, "", "");
+                WT.type = "392-Web Template File";
+                WT.file = currentElement.name;
+                tWebTemplatesList.add(WT);
             }
         }
     }
@@ -1746,7 +1831,7 @@ class GenerateSiebelPackageInstruction {
         Iterator<TParams> iterator = tParamsList.iterator();
         while (iterator.hasNext()) {
             TParams currentElement = iterator.next();
-            if (currentElement.category.equals("100-СУБД")) {
+            if (currentElement.category.equals("100-РЎРЈР‘Р”")) {
                 System.out.println("SQL is found " + currentElement.name);
                 TSQL SQL = new TSQL(currentElement.type, currentElement.name, "");
                 SQL.name = currentElement.name;
@@ -1830,9 +1915,9 @@ class GenerateSiebelPackageInstruction {
         headerPicture.setTextWrappingType(TextWrappingType.Both);
 
         //header text
-        TextRange text = headerParagraph.appendText("ТОВ \"Ареон Консалтінг\" \n"
-                + "Україна, 04210, Київ, вул. Маршала Тимошенка, 21/14\n"
-                + " Телефон: +38 (044) 538-08-00");
+        TextRange text = headerParagraph.appendText("РўРћР’ \"РђСЂРµРѕРЅ РљРѕРЅСЃР°Р»С‚С–РЅРі\" \n"
+                + "РЈРєСЂР°С—РЅР°, 04210, РљРёС—РІ, РІСѓР». РњР°СЂС€Р°Р»Р° РўРёРјРѕС€РµРЅРєР°, 21/14\n"
+                + " РўРµР»РµС„РѕРЅ: +38 (044) 538-08-00");
         text.getCharacterFormat().setFontName("Calibri");
         text.getCharacterFormat().setFontSize(11);
         headerParagraph.getFormat().setHorizontalAlignment(HorizontalAlignment.Right);
@@ -1854,11 +1939,11 @@ class GenerateSiebelPackageInstruction {
         Paragraph footerParagraph = footer.addParagraph();
 
         //insert page number
-        footerParagraph.appendField("Версія "+ pkgNo, FieldType.Field_Info);
-        footerParagraph.appendText(" Стр.");
-        footerParagraph.appendField("Страница", FieldType.Field_Page);
-        footerParagraph.appendText(" з ");
-        footerParagraph.appendField("ЧислоСтраниц", FieldType.Field_Num_Pages);
+        footerParagraph.appendField("РџР°РєРµС‚ "+ pkgNo, FieldType.Field_Info);
+        footerParagraph.appendText(" РЎС‚РѕСЂ.");
+        footerParagraph.appendField("РЎС‚РѕСЂС–РЅРєР°", FieldType.Field_Page);
+        footerParagraph.appendText(" Р· ");
+        footerParagraph.appendField("Р§РёСЃР»РѕРЎС‚РѕСЂС–РЅРѕРє", FieldType.Field_Num_Pages);
         footerParagraph.getFormat().setHorizontalAlignment(HorizontalAlignment.Right);
         footerParagraph.applyStyle("paraStyle");
 
